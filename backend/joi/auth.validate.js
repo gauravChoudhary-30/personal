@@ -34,6 +34,25 @@ const auth = {
             "string.empty": "Phone number cannot be empty.",
             "string.pattern.base": "Phone number is invalid, it must be exactly 10 digits.",
         })
+    }),
+    forgotPassValidate: Joi.object().keys({
+        email: Joi.string().email().required().messages({
+            "any.required": "Email is required.",
+            "string.empty": "Email is required.",
+            "string.email": "Email must be valid.",
+        }),
+    }),
+    otpValidate: Joi.object().keys({
+        otp: Joi.string().length(6).pattern(/^[0-9]+$/).required().messages({
+            'string.length': 'OTP must be exactly 6 digits long',
+            'string.pattern.base': 'OTP must contain only numbers',
+            'any.required': 'OTP is required'
+        }),
+        email: Joi.string().email().required().messages({
+            "any.required": "Email is required.",
+            "string.empty": "Email is required.",
+            "string.email": "Email must be valid.",
+        }),
     })
 };
 
