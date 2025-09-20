@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPhone, faEnvelope, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import Navbar from "../components/navbar";
+import SidebarMenu from "../components/sidebar";
+import Footer from "../components/footer";
 
 const Home = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -9,26 +10,17 @@ const Home = () => {
     setMenuOpen(!menuOpen);
   };
 
+  const menuItems = [
+    { label: "Home", link: "/" },
+    { label: "About", link: "/about" },
+    { label: "Login", link: "/login" },
+  ];
+
   return (
     <>
       {/* Navigation Bar */}
-      <nav style={styles.navbar}>
-        <div style={styles.menuIcon} onClick={toggleMenu}>☰</div>
-        <div style={styles.logo}>EzyFee</div>
-      </nav>
-
-      {/* Side Drawer Menu */}
-      <div style={{ ...styles.drawer, transform: menuOpen ? "translateX(0)" : "translateX(-100%)" }}>
-        <button style={styles.closeButton} onClick={toggleMenu}>✖</button>
-        <ul style={styles.menuList}>
-          <li style={styles.menuItem}>Home</li>
-          <li style={styles.menuItem}>About</li>
-          <li style={styles.menuItem}>Login</li>
-        </ul>
-      </div>
-
-      {/* Overlay to close drawer */}
-      {menuOpen && <div style={styles.overlay} onClick={toggleMenu}></div>}
+      <Navbar title="EzyFee" showMenuIcon={true} />
+      <SidebarMenu isOpen={menuOpen} onClose={toggleMenu} menuItems={menuItems} />
 
       {/* Main Content */}
       <div style={styles.mainContent}>
@@ -58,65 +50,12 @@ const Home = () => {
       </div>
 
       {/* Footer Section */}
-      <footer style={styles.footer}>
-        <div style={styles.footerContent}>
-          {/* Phone */}
-          <div style={styles.footerItem}>
-          <h1>EzyFee - Choudhary Auto Agency</h1>
-          </div>
-          <div style={styles.footerItem}>
-            <FontAwesomeIcon icon={faPhone} style={styles.icon} />
-            <div>
-              <p>+91 8210443680, +91 8987896845</p>
-            </div>
-          </div>
-
-          {/* Email */}
-          <div style={styles.footerItem}>
-            <FontAwesomeIcon icon={faEnvelope} style={styles.icon} />
-            <div>
-              <p>karunasingh14121974@gmail.com, thisisgaurav30@gmail.com</p>
-            </div>
-          </div>
-
-          {/* Address */}
-          <div style={styles.footerItem}>
-            <FontAwesomeIcon icon={faMapMarkerAlt} style={styles.icon} />
-            <div>
-              <p>House Number: 2105, Sector: 11/D, Bokaro Steel City, Jharkhand, Pin: 827009</p>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 };
 
 const styles = {
-  navbar: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "10px 20px",
-    backgroundColor: "#506645",
-    color: "#fff",
-    position: "fixed",
-    width: "100%",
-    top: 0,
-    left: 0,
-    zIndex: 1000,
-  },
-  menuIcon: {
-    fontSize: "24px",
-    cursor: "pointer",
-    zIndex: 1100,
-  },
-  logo: {
-    fontSize: "24px",
-    fontWeight: "bold",
-    position: "absolute",
-    right: "70px",
-  },
   drawer: {
     position: "fixed",
     top: 0,
@@ -233,27 +172,7 @@ const styles = {
     cursor: "pointer",
     fontWeight: "bold",
   },
-  footer: {
-    backgroundColor: "#506645",
-    color: "#fff",
-    padding: "20px",
-    textAlign: "center",
-    marginTop: "40px",
-  },
-  footerContent: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "left",
-    gap: "10px",
-  },
-  footerItem: {
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-  },
-  icon: {
-    fontSize: "20px",
-  },
+  
 };
 
 export default Home;
