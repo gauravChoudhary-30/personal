@@ -1,100 +1,155 @@
 import React, { useState } from "react";
-import Navbar from "../components/navbar";
-import { useNavigate } from "react-router-dom";
-import { login } from "../api/auth";
-import Footer from "../components/footer";
+import {
+  Box,
+  Button,
+  Typography,
+  Container,
+  Alert,
+  TextField,
+  Fade,
+} from "@mui/material";
+import { loginNew } from "../api/auth";
+import "@fontsource/poppins/400.css";
+import "@fontsource/poppins/600.css";
+import "@fontsource/poppins/700.css";
 
 const Login = () => {
-  const [credentials, setCredentials] = useState({ mob: null });
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const [showError, setShowError] = useState(false);
 
   const handleChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+    const value = e.target.value.replace(/\D/g, "");
+    setPhoneNumber(value);
   };
 
-  const handleSubmit = async() => {
-
-    const response = await login(credentials);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await loginNew(Number(phoneNumber));
     console.log(response);
-    if(response){
-        alert("Login Successful");
-        console.log("Login Successful");
-        navigate("/");
-    } else{
-        alert("Login Failed");
-        console.log("Login Failed");
-        setError("Invalid Credentials");
+    if (response.error || response.data === null || response.status !== 200) {
+      setError("Phone Number Verification Failed");
+      setShowError(true);
+      setTimeout(() => setShowError(false), 3000);
+    } else {
+      alert("Login Successful");
     }
   };
 
   return (
-    <>
-      <Navbar title="EzyFee" showMenuIcon={true}/>
-      <div style={styles.container}>
-        <form onSubmit={handleSubmit} style={styles.form}>
-          <h2 style={styles.heading}>Login</h2>
-          {error && <p style={styles.error}>{error}</p>}
+    <Container
+      maxWidth="sm"
+      disableGutters
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        fontFamily: "'Poppins', sans-serif",
+        bgcolor: "#1450dc",
+      }}
+    >
+      {/* Top section */}
+      <Box
+        sx={{
+          height: "20vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "white",
+        }}
+      >
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 700,
+            textAlign: "center",
+          }}
+        >
+          Welcome Back!
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          sx={{ mt: 1, fontWeight: 500, textAlign: "center", opacity: 0.9 }}
+        >
+          Login to manage student fees easily
+        </Typography>
+      </Box>
 
-          <input
-            type="text"
-            name="mob"
-            placeholder="Enter your Mobile Number"
-            value={credentials.mob}
+      {/* Bottom white card */}
+      <Box
+        sx={{
+          flex: 1,
+          bgcolor: "white",
+          borderTopLeftRadius: 40,
+          borderTopRightRadius: 40,
+          display: "flex",
+          flexDirection: "column",
+          // justifyContent: "space-between",
+          p: 4,
+        }}
+      >
+        {/* Form top content */}
+        <Box>
+          <Typography
+            variant="h4"
+            color="primary"
+            fontWeight="bold"
+            align="center"
+            mb={10}
+            sx={{ color: "#1450dc" }}
+          >
+            Sign In
+          </Typography>
+
+          {/* Animated error message */}
+          {error && (
+            <Fade in={showError}>
+              <Alert severity="error" sx={{ mb: 2 }}>
+                {error}
+              </Alert>
+            </Fade>
+          )}
+
+          {/* Input */}
+          <TextField
+            label="Mobile Number"
+            value={phoneNumber}
             onChange={handleChange}
-            required
-            style={styles.input}
+            type="tel" // allows numeric keypad on mobile
+            name="phoneNumber"
+            fullWidth
+            variant="filled"
+            inputProps={{
+              inputMode: "numeric", // ensures numeric keypad on mobile
+              pattern: "[0-9]*", // allows only digits
+              maxLength: 10, // optional: max length of phone number
+            }}
           />
+        </Box>
 
-          <button type="submit" style={styles.button}>Login</button>
-        </form>
-      </div>
-      <Footer />
-    </>
+        {/* Bottom button */}
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          fullWidth
+          sx={{
+            mt: 8,
+            py: 1.5,
+            fontWeight: 600,
+            textTransform: "none",
+            fontSize: "1rem",
+            bgcolor: "#1450dc",
+            "&:hover": { bgcolor: "#0f3aa7" },
+          }}
+          onClick={handleSubmit}
+        >
+          Login
+        </Button>
+      </Box>
+    </Container>
   );
-};
-
-const styles = {
-  container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "80vh",
-    backgroundColor: "#f4f4f4",
-  },
-  form: {
-    backgroundColor: "#fff",
-    padding: "20px",
-    borderRadius: "8px",
-    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-    width: "320px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "10px",
-  },
-  heading: {
-    textAlign: "center",
-    marginBottom: "10px",
-  },
-  input: {
-    padding: "10px",
-    fontSize: "16px",
-    borderRadius: "4px",
-    border: "1px solid #ccc",
-  },
-  button: {
-    backgroundColor: "#506645",
-    color: "#fff",
-    padding: "10px",
-    borderRadius: "4px",
-    cursor: "pointer",
-    border: "none",
-    fontSize: "16px",
-  },
-  error: {
-    color: "red",
-    textAlign: "center",
-  },
 };
 
 export default Login;

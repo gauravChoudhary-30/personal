@@ -1,6 +1,7 @@
 const { verifyPassword } = require('../middleware/auth');
 const OTPStorage = require('../middleware/OTPStorage');
 const Admin = require('../models/adminSchema');
+const Users = require('../models/usersSchema');
 const sendForgotPassword = require('../services/email.service');
 const { generateOTP } = require('../services/otp.service');
 const { apiResponse } = require('../utils/apiResponse');
@@ -86,9 +87,25 @@ async function validateOTP(req, res) {
         return apiResponse(res, 'Internal server error', null, statusCodes.INTERNAL_SERVER_ERROR);
     }
 }
+
+async function signinNew( req, res ) {
+    try {
+        const { phoneNumber } = req.body;
+        const user = await Users.findOne({
+            phoneNumber: Number(phoneNumber),
+        });
+        if(!user) {
+            return apiResponse(res, "User not found", null, statusCodes.NOT_FOUND);
+        }
+        return apiResponse(res, "User Sign-in Successfull", user, statusCodes.OK);
+    } catch (error) {
+        return apiResponse(res, error.message, error, statusCodes.NOT_FOUND);
+    }
+}
 module.exports = {
     signup,
     signin,
     forgotPassword,
-    validateOTP
+    validateOTP,
+    signinNew
 }

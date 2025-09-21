@@ -1,48 +1,28 @@
-import React ,{useState }from "react";
+import React from "react";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = ({ title, showMenuIcon }) => {
-    const [menuOpen, setMenuOpen] = useState(false);
-  
-    const toggleMenu = () => {
-      setMenuOpen(!menuOpen);
-    };
   return (
-    <nav style={styles.navbar}>
-      {showMenuIcon && (
-        <div style={styles.menuIcon} onClick={toggleMenu}>
-          ☰
-        </div>
-      )}
-      {title && <div style={styles.logo}>{title}</div>}
-    </nav>
+    <AppBar position="fixed" color="primary" sx={{ height: "60px", zIndex: 1000 }}>
+      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+        {showMenuIcon && (
+          <IconButton edge="start" color="inherit" aria-label="menu">
+            <FontAwesomeIcon icon={faBars} />
+          </IconButton>
+        )}
+        {title && (
+          <Typography variant="h6" component="div" sx={{ fontWeight: "bold" }}>
+            {title}
+          </Typography>
+        )}
+      </Toolbar>
+    </AppBar>
   );
-};
-
-const styles = {
-  navbar: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "10px 20px",
-    backgroundColor: "#506645",
-    color: "#fff",
-    position: "fixed",
-    width: "100%",
-    top: 0,
-    left: 0,
-    zIndex: 1000,
-  },
-  menuIcon: {
-    fontSize: "24px",
-    cursor: "pointer",
-    zIndex: 1100,
-  },
-  logo: {
-    fontSize: "24px",
-    fontWeight: "bold",
-    position: "absolute",
-    right: "70px",
-  },
 };
 
 export default Navbar;

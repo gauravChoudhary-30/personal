@@ -53,7 +53,15 @@ const auth = {
             "string.empty": "Email is required.",
             "string.email": "Email must be valid.",
         }),
-    })
+    }),
+    signinNewValidate: Joi.object().keys({
+    phoneNumber: Joi.number().integer().min(1000000000).max(9999999999).required()
+        .messages({
+        "any.required": "Phone number is required.",
+        "number.base": "Phone number must be a number.",
+        "number.min": "Phone number must be 10 digits.",
+        "number.max": "Phone number must be 10 digits.",
+        }),
+    }),
 };
-
 module.exports = auth;
