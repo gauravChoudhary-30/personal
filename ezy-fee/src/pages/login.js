@@ -12,11 +12,14 @@ import { loginNew } from "../api/auth";
 import "@fontsource/poppins/400.css";
 import "@fontsource/poppins/600.css";
 import "@fontsource/poppins/700.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [error, setError] = useState("");
   const [showError, setShowError] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const value = e.target.value.replace(/\D/g, "");
@@ -32,7 +35,8 @@ const Login = () => {
       setShowError(true);
       setTimeout(() => setShowError(false), 3000);
     } else {
-      alert("Login Successful");
+      localStorage.setItem("user", JSON.stringify(response.data)); 
+      navigate('/home');
     }
   };
 
@@ -45,7 +49,7 @@ const Login = () => {
         display: "flex",
         flexDirection: "column",
         fontFamily: "'Poppins', sans-serif",
-        bgcolor: "#1450dc",
+        bgcolor: "#1976d2",
       }}
     >
       {/* Top section */}
@@ -97,7 +101,7 @@ const Login = () => {
             fontWeight="bold"
             align="center"
             mb={10}
-            sx={{ color: "#1450dc" }}
+            sx={{ color: "#1976d2" }}
           >
             Sign In
           </Typography>
@@ -140,7 +144,7 @@ const Login = () => {
             fontWeight: 600,
             textTransform: "none",
             fontSize: "1rem",
-            bgcolor: "#1450dc",
+            bgcolor: "#1976d2",
             "&:hover": { bgcolor: "#0f3aa7" },
           }}
           onClick={handleSubmit}

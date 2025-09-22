@@ -1,62 +1,31 @@
-import React from 'react'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faMapMarkerAlt, faPhone } from '@fortawesome/free-solid-svg-icons';
+import React, { useState } from "react";
+import { Box } from "@mui/material";
+import FabButton from "./FabButton";
+import BottomSheet from "./BottomSheet";
 
 const Footer = () => {
-    return (
-        <footer style={styles.footer}>
-        <div style={styles.footerContent}>
-          {/* Phone */}
-          <div style={styles.footerItem}>
-          <h1>EzyFee - Choudhary Auto Agency</h1>
-          </div>
-          <div style={styles.footerItem}>
-            <FontAwesomeIcon icon={faPhone} style={styles.icon} />
-            <div>
-              <p>+91 8210443680, +91 8987896845</p>
-            </div>
-          </div>
+  const [open, setOpen] = useState(false);
 
-          {/* Email */}
-          <div style={styles.footerItem}>
-            <FontAwesomeIcon icon={faEnvelope} style={styles.icon} />
-            <div>
-              <p>karunasingh14121974@gmail.com, thisisgaurav30@gmail.com</p>
-            </div>
-          </div>
+  return (
+    <>
+      <Box
+        component="footer"
+        sx={{
+          bgcolor: "background.paper",
+          boxShadow: "0 -2px 5px rgba(0,0,0,0.2)",
+          position: "fixed",
+          bottom: 0,
+          width: "100%",
+          zIndex: 1000,
+          p: 2,
+        }}
+      >
+        <FabButton onClick={() => setOpen(true)} />
+      </Box>
 
-          {/* Address */}
-          <div style={styles.footerItem}>
-            <FontAwesomeIcon icon={faMapMarkerAlt} style={styles.icon} />
-            <div>
-              <p>House Number: 2105, Sector: 11/D, Bokaro Steel City, Jharkhand, Pin: 827009</p>
-            </div>
-          </div>
-        </div>
-      </footer>
-    )
-}
-const styles = {
-    footer: {
-        backgroundColor: "#506645",
-        color: "#fff",
-        padding: "20px",
-        textAlign: "center",
-      },
-      footerContent: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "left",
-        gap: "10px",
-      },
-      footerItem: {
-        display: "flex",
-        alignItems: "center",
-        gap: "10px",
-      },
-      icon: {
-        fontSize: "20px",
-      },
-    }
+      <BottomSheet open={open} onClose={() => setOpen(false)} />
+    </>
+  );
+};
 
 export default Footer;

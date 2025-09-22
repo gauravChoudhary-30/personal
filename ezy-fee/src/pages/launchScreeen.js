@@ -38,7 +38,7 @@ const LaunchScreen = () => {
       disableGutters
       sx={{
         minHeight: "100vh",
-        bgcolor: "#1450dc",
+        bgcolor: "#1976d2",
         fontFamily: "'Poppins', sans-serif",
       }}
     >
@@ -97,7 +97,7 @@ const LaunchScreen = () => {
           sx={{
             position: "absolute",
             bottom: "30%",
-            bgcolor: "#1450dc",
+            bgcolor: "#1976d2",
             "&:hover": { bgcolor: "#0f3aa7" },
           }}
           onClick={handleClick}
