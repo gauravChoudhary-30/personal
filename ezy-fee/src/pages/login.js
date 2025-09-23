@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -13,13 +13,18 @@ import "@fontsource/poppins/400.css";
 import "@fontsource/poppins/600.css";
 import "@fontsource/poppins/700.css";
 import { useNavigate } from "react-router-dom";
+import useStore from "../store/store";
 
 const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [error, setError] = useState("");
   const [showError, setShowError] = useState(false);
-
+  const setUser = useStore((state) => state.setUser);
   const navigate = useNavigate();
+  const user = useStore((state) => state.user);
+  useEffect(() => {
+    if (user) navigate("/home");
+  }, [user, navigate]);
 
   const handleChange = (e) => {
     const value = e.target.value.replace(/\D/g, "");
@@ -35,8 +40,8 @@ const Login = () => {
       setShowError(true);
       setTimeout(() => setShowError(false), 3000);
     } else {
-      localStorage.setItem("user", JSON.stringify(response.data)); 
-      navigate('/home');
+      setUser(response.data);
+      navigate("/home");
     }
   };
 

@@ -8,6 +8,7 @@ import "@fontsource/poppins/400.css";
 import "@fontsource/poppins/600.css";
 import "@fontsource/poppins/700.css";
 import { useNavigate } from "react-router-dom";
+import useStore from "../store/store";
 
 // Bounce animation for welcome text
 const bounce = keyframes`
@@ -28,9 +29,15 @@ const fadeIn = keyframes`
 `;
 
 const LaunchScreen = () => {
+  const user = useStore((state) => state.user);
   const navigate = useNavigate();
+  
   const handleClick = () => {
-    navigate("/login");
+    if (user) {
+      navigate("/home");
+    } else {
+      navigate("/login");
+    }
   };
   return (
     <Container
