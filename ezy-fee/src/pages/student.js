@@ -5,7 +5,7 @@ import BackButtonBar from "../components/BackButtonBar";
 import { getStudentByNC } from "../api/student";
 import SchoolBus from "../lotties/schoolBus";
 import NotFound from "../lotties/notFound";
-import { Box, LinearProgress, Typography, Paper, Grid } from "@mui/material";
+import { Box, LinearProgress, Typography, Paper } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -13,7 +13,6 @@ import {
   faMoneyBill,
   faUsers,
   faPhone,
-  faSchool,
   faMapMarkerAlt,
   faCalendarAlt,
 } from "@fortawesome/free-solid-svg-icons";
