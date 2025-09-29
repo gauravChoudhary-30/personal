@@ -7,7 +7,7 @@ const Home = () => {
     <>
       {/* Navigation Bar */}
       <Navbar title="EzyFee" showMenuIcon={true} />
-      <Footer />
+      <Footer showButton={true} />
     </>
   );
 };

@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import FabButton from "./FabButton";
 import BottomSheet from "./BottomSheet";
 
-const Footer = () => {
+const Footer = ({ showButton }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -19,8 +19,7 @@ const Footer = () => {
           zIndex: 1000,
           p: 2,
         }}
-      >
-        <FabButton onClick={() => setOpen(true)} />
+      > {showButton && <FabButton onClick={() => setOpen(true)} />}
       </Box>
 
       <BottomSheet open={open} onClose={() => setOpen(false)} />

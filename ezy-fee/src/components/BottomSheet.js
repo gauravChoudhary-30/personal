@@ -5,15 +5,14 @@ import {
   Typography,
   Divider,
   TextField,
-  Fade,
-  Alert,
   Button,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const BottomSheet = ({ open, onClose }) => {
   const [ncNo, setncNo] = useState("");
-  const [error, setError] = useState("");
-  const [showError, setShowError] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const value = e.target.value.replace(/\D/g, "");
@@ -22,9 +21,7 @@ const BottomSheet = ({ open, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("Searching...");
-    setShowError(true);
-    setTimeout(() => setShowError(false), 3000);
+    navigate(`/student?nc=${ncNo}`);
   }
 
   return (
@@ -77,14 +74,6 @@ const BottomSheet = ({ open, onClose }) => {
         >
           Search
         </Button>
-
-        {error && (
-          <Fade in={showError}>
-            <Alert severity="error" sx={{ mt: 2 }}>
-              {error}
-            </Alert>
-          </Fade>
-        )}
       </Box>
     </Drawer>
   );
