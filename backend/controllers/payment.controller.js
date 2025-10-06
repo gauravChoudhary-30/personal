@@ -84,7 +84,7 @@ async function paymentByNC(req, res) {
 async function getLastPayment(req, res) {
   try {
     const { nc } = req.query;
-    const last_payment = await Payments.findOne({ nc });
+    const last_payment = await Payments.findOne({ nc }).sort({ payment_date: -1 });;
     if (!last_payment) {
       return apiResponse(
         res,
