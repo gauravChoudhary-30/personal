@@ -1,10 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { AppBar, Button } from "@mui/material";
+import { AppBar, Box, Button, Typography } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 
-const BackButtonBar = () => {
+const BackButtonBar = ({nc}) => {
   const navigate = useNavigate();
 
   return (
@@ -19,11 +19,18 @@ const BackButtonBar = () => {
         height: "60px",
       }}
     >
-      <Button
-        onClick={() => navigate(-1)}
-        startIcon={<FontAwesomeIcon icon={faAngleLeft} />}
-        color="#fff"
-      />
+      <Box
+        sx={{ display: "flex", justifyContent: "space-between", width: "100%"}}
+      >
+        <Button
+          onClick={() => navigate(-1)}
+          startIcon={<FontAwesomeIcon icon={faAngleLeft} />}
+          color="#fff"
+        />
+        {nc && <Button onClick={() => navigate(`/student/payment?nc=${nc}`)}>
+          <Typography color="#fff" sx={{pr: 1}}>Payment</Typography>
+        </Button>}
+      </Box>
     </AppBar>
   );
 };

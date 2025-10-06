@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import Footer from "../components/footer";
-import BackButtonBar from "../components/BackButtonBar";
-import { getStudentByNC } from "../api/student";
-import SchoolBus from "../lotties/schoolBus";
-import NotFound from "../lotties/notFound";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import Footer from "../../components/footer";
+import BackButtonBar from "../../components/BackButtonBar";
+import { getStudentByNC } from "../../api/student";
+import SchoolBus from "../../lotties/schoolBus";
+import NotFound from "../../lotties/notFound";
 import { Box, LinearProgress, Typography, Paper } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
@@ -23,6 +23,8 @@ const Student = () => {
   const [student, setStudent] = useState(null);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
@@ -45,17 +47,12 @@ const Student = () => {
         setLoading(false);
       }
     };
-
-    const timer = setTimeout(() => {
       fetchStudentByNC();
-    }, 3000);
-
-    return () => clearTimeout(timer);
   }, [ncNo]);
 
   return (
     <>
-      <BackButtonBar />
+      <BackButtonBar nc={ncNo} />
 
       {loading ? (
         <Box
@@ -114,7 +111,8 @@ const Student = () => {
               p: 3,
               borderRadius: 3,
               textAlign: "center",
-              background: "linear-gradient(135deg, #e3f2fd, #fce4ec)",
+              backgroundColor: "#fafafa",
+              border: "1px solid #eee",
               position: "relative",
               overflow: "visible",
             }}
@@ -151,7 +149,11 @@ const Student = () => {
           </Paper>
 
           {/* Details Grid */}
-          <Typography variant="subtitle1" fontWeight="bold" sx={{ mt: 3, mb:1 }}>
+          <Typography
+            variant="subtitle1"
+            fontWeight="bold"
+            sx={{ mt: 3, mb: 1 }}
+          >
             Student Details
           </Typography>
 
@@ -263,6 +265,9 @@ const Student = () => {
                 backgroundColor: "#fafafa",
                 border: "1px solid #eee",
                 width: "100%", // full width
+              }}
+              onClick={() => {
+                navigate(`tel:${student?.phone_number}`);
               }}
             >
               <FontAwesomeIcon

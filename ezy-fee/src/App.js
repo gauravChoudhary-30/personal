@@ -5,6 +5,7 @@ import Login from './pages/login';
 import LaunchScreen from './pages/launchScreeen';
 import Student from './pages/student';
 import ProtectedRoute from './components/protectedRoutes';
+import Payment from './pages/student/payment';
 
 function App() {
   return (
@@ -25,6 +26,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Student />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/student/payment" 
+          element={
+            <ProtectedRoute>
+              <Payment />
             </ProtectedRoute>
           } 
         />

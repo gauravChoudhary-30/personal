@@ -1,7 +1,7 @@
 import React from "react";
 import { Fab } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const FabButton = ({ onClick }) => {
   return (
@@ -15,7 +15,7 @@ const FabButton = ({ onClick }) => {
         transform: "translateX(-80%)",
       }}
     >
-      <FontAwesomeIcon icon={faPlus} />
+      <FontAwesomeIcon icon={faSearch} />
     </Fab>
   );
 };
