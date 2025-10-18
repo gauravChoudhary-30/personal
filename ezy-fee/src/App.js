@@ -6,6 +6,8 @@ import LaunchScreen from './pages/launchScreeen';
 import Student from './pages/student';
 import ProtectedRoute from './components/protectedRoutes';
 import Payment from './pages/student/payment';
+import AddStudent from './pages/addStudent';
+import AllStudents from './pages/allStudents';
 
 function App() {
   return (
@@ -34,6 +36,22 @@ function App() {
           element={
             <ProtectedRoute>
               <Payment />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/add-student" 
+          element={
+            <ProtectedRoute>
+              <AddStudent />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/all-students" 
+          element={
+            <ProtectedRoute>
+              <AllStudents />
             </ProtectedRoute>
           } 
         />

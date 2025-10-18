@@ -4,7 +4,7 @@ import { AppBar, Box, Button, Typography } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 
-const BackButtonBar = ({nc}) => {
+const BackButtonBar = ({buttonText, onClick}) => {
   const navigate = useNavigate();
 
   return (
@@ -27,8 +27,8 @@ const BackButtonBar = ({nc}) => {
           startIcon={<FontAwesomeIcon icon={faAngleLeft} />}
           color="#fff"
         />
-        {nc && <Button onClick={() => navigate(`/student/payment?nc=${nc}`)}>
-          <Typography color="#fff" sx={{pr: 1}}>Payment</Typography>
+        {buttonText && <Button onClick={onClick}>
+          <Typography color="#fff" sx={{pr: 1}}>{buttonText}</Typography>
         </Button>}
       </Box>
     </AppBar>

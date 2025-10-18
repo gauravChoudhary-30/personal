@@ -14,6 +14,19 @@ async function getStudentByNC(req, res) {
     }
 }
 
+async function getAllStudents(req, res){
+    try{
+        const all_students =  await Student.find();
+        if(!all_students) {
+            return apiResponse(res,"Error Fetching Student's List", null, statusCodes.NOT_FOUND);
+        }
+        return apiResponse(res, "Student's List", all_students, statusCodes.OK);
+    } catch(error) {
+        return apiResponse(res,"Error Fetching Student's List", null, statusCodes.NOT_FOUND);
+    }
+}
+
 module.exports = {
-    getStudentByNC
+    getStudentByNC,
+    getAllStudents
 }

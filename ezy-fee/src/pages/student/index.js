@@ -52,7 +52,7 @@ const Student = () => {
 
   return (
     <>
-      <BackButtonBar nc={ncNo} />
+      <BackButtonBar buttonText={'PAYMENT'} onClick={() => navigate(`/student/payment?nc=${ncNo}`)} />
 
       {loading ? (
         <Box
