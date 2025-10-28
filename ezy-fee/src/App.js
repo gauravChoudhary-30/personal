@@ -8,6 +8,7 @@ import ProtectedRoute from './components/protectedRoutes';
 import Payment from './pages/student/payment';
 import AddStudent from './pages/addStudent';
 import AllStudents from './pages/allStudents';
+import ManageSchools from './pages/manageSchools';
 
 function App() {
   return (
@@ -52,6 +53,14 @@ function App() {
           element={
             <ProtectedRoute>
               <AllStudents />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/manage-schools" 
+          element={
+            <ProtectedRoute>
+              <ManageSchools />
             </ProtectedRoute>
           } 
         />

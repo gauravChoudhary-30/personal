@@ -1,7 +1,9 @@
 const express =  require('express');
-const { getSchools } = require('../controllers/school.controller');
+const { getSchools, addNewSchool } = require('../controllers/school.controller');
 
 const router =  new express.Router();
 
 router.get("/getSchools", getSchools);
+router.post("/addSchool", addNewSchool);
+
 module.exports = router;

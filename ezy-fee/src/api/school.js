@@ -8,3 +8,12 @@ export const getAllSchools =  async () => {
         return error.response.data;
     }
 }
+
+export const addNewSchool =  async (payload) => {
+    try {
+        const response =  await api.post("/school/addSchool", payload);
+        return response.data;
+    } catch(error) {
+        return error.response.data;
+    }
+}

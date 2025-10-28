@@ -1,28 +1,21 @@
 import React from "react";
-import {
-  Typography,
-  Drawer,
-  Box,
-  Avatar,
-  Divider,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  ListItemIcon,
-} from "@mui/material";
+import { Typography, Drawer, Box, Avatar, Divider, List, ListItem, ListItemButton, ListItemText, ListItemIcon } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faSignOutAlt,
-  faUserPlus,
-  faUsers,
-  faBookOpen,
-  faPen,
-} from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt, faUserPlus, faUsers, faBookOpen, faPen, faSchool } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import useStore from "../store/store";
 
-const menuItems = [
+const CustomDrawer = ({ open, setOpen }) => {
+  const user = useStore((state) => state.user);
+  const clearUser = useStore((state) => state.clearUser);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    clearUser();
+    navigate("/");
+  };
+
+  const baseMenuItems = [
   {
     label: "Add Student",
     icon: faUserPlus,
@@ -40,16 +33,16 @@ const menuItems = [
   },
 ];
 
-const CustomDrawer = ({ open, setOpen }) => {
-  const user = useStore((state) => state.user);
-  const clearUser = useStore((state) => state.clearUser);
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    clearUser();
-    navigate("/");
-  };
-
+const menuItems = user?.isSuperAdmin
+    ? [
+        ...baseMenuItems,
+        {
+          label: "Manage Schools",
+          icon: faSchool,
+          path: "/manage-schools",
+        },
+      ]
+    : baseMenuItems;
   return (
     <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
       <Box
